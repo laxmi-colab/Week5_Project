@@ -1,44 +1,51 @@
 const express = require("express");
-const axios = require("axios");
-
 const router = express.Router();
 
+
 router.post("/chat", async (req, res) => {
-  try {
-    const { prompt } = req.body;
 
-    const response = await axios.post(
-  "https://router.huggingface.co/v1/chat/completions",
-  {
-    model: "Qwen/Qwen2.5-7B-Instruct",
-    messages: [
-      {
-        role: "user",
-        content: prompt
-      }
-    ]
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${process.env.HF_API_KEY}`,
-      "Content-Type": "application/json"
+    try {
+
+        const { message } = req.body;
+
+
+        if (!message) {
+            return res.status(400).json({
+                success:false,
+                message:"Message is required"
+            });
+        }
+
+
+        const reply = 
+        `AI Assistant Response:
+        
+        You asked: ${message}
+
+        This is a demo AI response for the project.
+        AI feature is working successfully.`;
+
+
+        res.json({
+
+            success:true,
+            message: reply
+
+        });
+
+
+    } catch(error) {
+
+        res.status(500).json({
+
+            success:false,
+            message:"AI service error"
+
+        });
+
     }
-  }
-);
 
-res.json({
-  success: true,
-  reply: response.data.choices[0].message.content
 });
 
-  } catch (err) {
-    console.log(err.response?.data || err.message);
-
-    res.status(500).json({
-      success: false,
-      message: err.response?.data || err.message
-    });
-  }
-});
 
 module.exports = router;
