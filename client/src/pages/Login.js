@@ -25,15 +25,14 @@ function Login() {
       alert("Login Successful");
 
       navigate("/dashboard");
+
     } catch (err) {
-      console.log("ERROR =>", err);
+      console.log(err);
 
       if (err.response) {
         alert(err.response.data.message);
-      } else if (err.request) {
-        alert("Backend server is not responding");
       } else {
-        alert(err.message);
+        alert("Backend server is not responding");
       }
     }
   };
@@ -66,7 +65,7 @@ function Login() {
 
       <button
         onClick={() =>
-          (window.location.href = `${API_URL}/api/auth/google`)
+          window.location.href = `${API_URL}/api/auth/google`
         }
       >
         Sign in with Google
