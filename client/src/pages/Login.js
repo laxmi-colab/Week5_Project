@@ -5,16 +5,18 @@ import { Link, useNavigate } from "react-router-dom";
 function Login() {
   const navigate = useNavigate();
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const loginUser = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        `${API_URL}/api/auth/login`,
         {
-          email: email,
-          password: password,
+          email,
+          password,
         }
       );
 
@@ -23,9 +25,7 @@ function Login() {
       alert("Login Successful");
 
       navigate("/dashboard");
-
     } catch (err) {
-
       console.log("ERROR =>", err);
 
       if (err.response) {
@@ -35,7 +35,6 @@ function Login() {
       } else {
         alert(err.message);
       }
-
     }
   };
 
@@ -67,7 +66,7 @@ function Login() {
 
       <button
         onClick={() =>
-          window.location.href = "http://localhost:5000/api/auth/google"
+          (window.location.href = `${API_URL}/api/auth/google`)
         }
       >
         Sign in with Google

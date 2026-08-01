@@ -3,13 +3,15 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Register() {
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const registerUser = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${API_URL}/api/auth/register`,
         {
           email,
           password,
@@ -18,14 +20,13 @@ function Register() {
 
       alert(res.data.message);
     } catch (err) {
-  console.log(err);
+      console.log(err);
 
-  if (err.response) {
-    alert(err.response.data.message);
-  } else {
-    alert("Cannot connect to backend server");
-  }
-
+      if (err.response) {
+        alert(err.response.data.message);
+      } else {
+        alert("Cannot connect to backend server");
+      }
     }
   };
 
