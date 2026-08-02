@@ -3,7 +3,7 @@
 ## Live Deployment
 
 ### Frontend
-https://week5-project-lkrx-6t57cff73-tbiprojects.vercel.app
+https://week5-project-zaiq-git-main-tbiprojects.vercel.app
 
 ### Backend
 https://tbi-backend-edpk.onrender.com
